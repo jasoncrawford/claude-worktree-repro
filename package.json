@@ -1,0 +1,14 @@
+{
+  "name": "claude-worktree-repro",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "repro": "tsx repro.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.2.76"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0"
+  }
+}
