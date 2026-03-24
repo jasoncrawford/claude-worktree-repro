@@ -52,13 +52,14 @@ async function runQuery(prompt: string, sessionId: string | undefined): Promise<
       }
     }
 
-    if (message.type === "tool" ) {
+    if (message.type === "user" && Array.isArray(message.message.content)) {
       for (const block of message.message.content) {
         if (block.type === "tool_result") {
           const content = Array.isArray(block.content)
             ? block.content.map((c: { type: string; text?: string }) => c.type === "text" ? c.text : "").join("")
             : String(block.content ?? "");
-          console.log(`Tool result: ${content.trim()}`);
+          const status = block.is_error ? "ERROR" : "OK";
+          console.log(`Tool result [${status}]: ${content.trim()}`);
         }
       }
     }
