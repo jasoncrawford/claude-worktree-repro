@@ -29,6 +29,7 @@ async function runQuery(prompt: string, sessionId: string | undefined): Promise<
   console.log(`${"─".repeat(60)}`);
 
   let capturedSessionId: string | undefined = sessionId;
+  let capturedModel: string | undefined;
 
   const iterable = query({
     prompt,
@@ -49,6 +50,10 @@ async function runQuery(prompt: string, sessionId: string | undefined): Promise<
     }
 
     if (message.type === "assistant") {
+      if (!capturedModel) {
+        capturedModel = message.message.model;
+        console.log(`Model: ${capturedModel}`);
+      }
       for (const block of message.message.content) {
         if (block.type === "text" && block.text.trim()) {
           console.log(`\nClaude: ${block.text.trim()}`);
