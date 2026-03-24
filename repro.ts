@@ -18,8 +18,8 @@ import { readFileSync } from "fs";
 import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
-const sdkPkgPath = require.resolve("@anthropic-ai/claude-agent-sdk").replace(/\/[^/]+$/, "/package.json");
-const sdkVersion = JSON.parse(readFileSync(sdkPkgPath, "utf8")).version;
+const sdkRoot = require.resolve("@anthropic-ai/claude-agent-sdk").replace(/\/[^/]+$/, "");
+const { version: sdkVersion } = JSON.parse(readFileSync(`${sdkRoot}/package.json`, "utf8"));
 console.log(`Claude Agent SDK version: ${sdkVersion}`);
 
 async function runQuery(prompt: string, sessionId: string | undefined): Promise<string | undefined> {
